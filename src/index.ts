@@ -32,8 +32,8 @@ const startServer = async () => {
   app.use("/graphql", cors(), express.json(), expressMiddleware(server));
 
   app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-    console.log(`graphql is running on port: ${port}/graphql`);
+    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`graphql is running on http://localhost:${port}/graphql`);
   });
 };
 

@@ -10,6 +10,6 @@ type Mutation {
 
 type Todo {
   id: ID!
-  title: String
-  text: String
+  title: String!
+  text: String!
 }
