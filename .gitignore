@@ -11,6 +11,7 @@ node_modules
 server/node_modules
 dist
 build
+public
 dist-ssr
 *.local
 .env*
