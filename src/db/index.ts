@@ -4,6 +4,6 @@ export {
   getAllTodosDb,
   getTodoByIdDB,
   updateTodoDb,
-} from "./actions";
-export { TodoModel } from "./mongoModels";
-export { default as connectToMongoDB } from "./mongoConnect";
+} from "./actions/index.js";
+export { TodoModel } from "./mongoModels/index.js";
+export { default as connectToMongoDB } from "./mongoConnect.js";

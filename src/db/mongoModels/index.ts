@@ -1,1 +1,1 @@
-export { default as TodoModel } from "./todoModel";
+export { default as TodoModel } from "./todoModel.js";

@@ -1,5 +1,5 @@
-import { createTodoDb, deleteTodoDb, getAllTodosDb, updateTodoDb } from "./db";
-import { NewTodo, Todo } from "./types";
+import { createTodoDb, deleteTodoDb, getAllTodosDb, updateTodoDb } from "./db/index.js";
+import { NewTodo, Todo } from "./types.js";
 
 const resolvers = {
   Todo: {

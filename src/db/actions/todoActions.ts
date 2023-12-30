@@ -1,7 +1,7 @@
 import { UpdateQuery } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
-import { TodoModel } from "../mongoModels";
-import { NewTodo, Todo } from "../../types";
+import { TodoModel } from "../mongoModels/index.js";
+import { NewTodo, Todo } from "../../types.js";
 
 const handleDatabaseError = (error: Error) => {
   console.error("Database error:", error.message);
