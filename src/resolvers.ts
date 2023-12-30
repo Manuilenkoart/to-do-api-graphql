@@ -3,21 +3,21 @@ import { NewTodo, Todo } from './types.js';
 
 const resolvers = {
   Todo: {
-    id: (parent: { id: any }) => parent.id,
+    id: (parent: { id: string }) => parent.id,
   },
   Query: {
-    async todos(_: any, __: any) {
+    async todos() {
       return getAllTodosDb();
     },
   },
   Mutation: {
-    async createTodo(_: any, newTodo: NewTodo) {
+    async createTodo(_: unknown, newTodo: NewTodo) {
       return createTodoDb(newTodo);
     },
-    async updateTodo(_: any, todo: Todo) {
+    async updateTodo(_: unknown, todo: Todo) {
       return updateTodoDb(todo);
     },
-    async deleteTodo(_: any, { id }: { id: Todo['id'] }) {
+    async deleteTodo(_: unknown, { id }: { id: Todo['id'] }) {
       return deleteTodoDb(id);
     },
   },
