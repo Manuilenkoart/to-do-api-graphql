@@ -1,16 +1,18 @@
 import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
+
 import { ApolloServer } from '@apollo/server';
-import { gql } from 'graphql-tag';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from './resolvers.js';
+import cors from 'cors';
+import express from 'express';
 import { readFileSync } from 'fs';
-import { resolve, dirname } from 'path';
-import { connectToMongoDB } from './db/index.js';
+import { gql } from 'graphql-tag';
+import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url); 
+import { connectToMongoDB } from './db/index.js';
+import resolvers from './resolvers.js';
+
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const port = process.env.SERVER_PORT;

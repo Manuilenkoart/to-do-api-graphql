@@ -5,6 +5,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["simple-import-sort"],
   "rules": {
     "no-unused-vars": [
       "error",
@@ -19,6 +20,8 @@
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   }
 }

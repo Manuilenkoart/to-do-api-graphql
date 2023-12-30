@@ -1,7 +1,8 @@
 import { UpdateQuery } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { TodoModel } from '../mongoModels/index.js';
+
 import { NewTodo, Todo } from '../../types.js';
+import { TodoModel } from '../mongoModels/index.js';
 
 const handleDatabaseError = (error: Error) => {
   console.error('Database error:', error.message);
@@ -82,4 +83,4 @@ const getTodoByIdDB = async (id: any) => {
   }
 };
 
-export { getAllTodosDb, createTodoDb, deleteTodoDb, updateTodoDb, getTodoByIdDB };
+export { createTodoDb, deleteTodoDb, getAllTodosDb, getTodoByIdDB,updateTodoDb };
