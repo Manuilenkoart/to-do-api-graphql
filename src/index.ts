@@ -6,8 +6,12 @@ import { gql } from 'graphql-tag';
 import { expressMiddleware } from '@apollo/server/express4';
 import resolvers from './resolvers.js';
 import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
 import { connectToMongoDB } from './db/index.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url); 
+const __dirname = dirname(__filename);
 
 const port = process.env.SERVER_PORT;
 const app = express();
@@ -16,7 +20,7 @@ app.use(cors());
 app.use(express.json());
 
 const typeDefs = gql(
-  readFileSync(resolve('to-do-api-graphql', '../src', 'schema.graphql'), {
+  readFileSync(resolve(__dirname, '../src', 'schema.graphql'), {
     encoding: 'utf-8',
   }),
 );
