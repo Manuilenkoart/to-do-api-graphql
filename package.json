@@ -9,9 +9,11 @@
     "npm": "^9.6.7"
   },
   "scripts": {
-    "dev": "npx nodemon",
+    "dev": "npx nodemon --mode dev",
     "start": "npm run build && node build/index.js",
-    "build": "rimraf ./build && npx tsc"
+    "build": "rimraf ./build && npx tsc",
+    "lint": "npx eslint ./src",
+    "format": "npx eslint ./src --fix"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +31,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
     "dotenv": "^16.3.1",
+    "eslint": "^8.56.0",
     "nodemon": "^3.0.2",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",

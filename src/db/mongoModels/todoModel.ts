@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const todoSchema = new mongoose.Schema(
   {
@@ -21,9 +21,9 @@ const todoSchema = new mongoose.Schema(
   },
   {
     versionKey: false,
-    strict: "throw",
+    strict: 'throw',
   },
 );
 
-const TodoModel = mongoose.model("Todo", todoSchema);
+const TodoModel = mongoose.model('Todo', todoSchema);
 export default TodoModel;

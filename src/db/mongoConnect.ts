@@ -1,14 +1,11 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 async function connectToMongoDB() {
   try {
-    await mongoose.connect(
-      process.env.MONGO_DB as string,
-      {},
-    );
-    console.info("MongoDB connected");
+    await mongoose.connect(process.env.MONGO_DB as string, {});
+    console.info('MongoDB connected');
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    console.error('MongoDB connection error:', error);
   }
 }
 
