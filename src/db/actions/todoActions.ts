@@ -1,12 +1,13 @@
-import { UpdateQuery } from 'mongoose';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Error as ErrorMongoose, MongooseError, UpdateQuery } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 import { NewTodo, Todo } from '../../types.js';
 import { TodoModel } from '../mongoModels/index.js';
 
-const handleDatabaseError = (error: Error) => {
-  console.error('Database error:', error.message);
-  throw new Error(`Database operation: ${error.message}`);
+const handleDatabaseError = (error: MongooseError) => {
+  console.error('Database error:', { error });
+  return error;
 };
 
 function handleSchemaValidationError(error: any) {
@@ -19,11 +20,16 @@ function handleSchemaValidationError(error: any) {
   };
 }
 
+function handleNotFound({ id, method }: { id: Todo['id']; method: string }) {
+  console.info(`${method} id:${id} not found`);
+  throw new Error(`id:${id} not found`);
+}
+
 const getAllTodosDb = async () => {
   try {
-    return (await TodoModel.find().select('-_id')) as Todo[];
+    return await TodoModel.find<Todo>().select('-_id');
   } catch (error: any) {
-    handleDatabaseError(error) as unknown;
+    return handleDatabaseError(error);
   }
 };
 
@@ -36,51 +42,51 @@ const createTodoDb = async (newTodo: NewTodo) => {
     const { _id, ...todo } = createdTodo.toObject();
     return todo as Todo;
   } catch (error: any) {
-    if (error.name === 'ValidationError') {
-      return handleSchemaValidationError(error) as unknown;
+    if (error instanceof ErrorMongoose.ValidationError) {
+      return handleSchemaValidationError(error);
     }
 
-    handleDatabaseError(error);
+    return handleDatabaseError(error);
   }
 };
 
 const updateTodoDb = async (todo: UpdateQuery<Todo>) => {
   try {
-    const updatedTodo = await TodoModel.findOneAndUpdate({ id: todo.id }, todo, {
+    const updatedTodo = await TodoModel.findOneAndUpdate<Todo>({ id: todo.id }, todo, {
       new: true,
       runValidators: true,
     }).select('-_id');
     if (!updatedTodo) {
-      console.info('Todo not found');
+      handleNotFound({ id: todo.id, method: 'updateTodoDb' });
     }
-    return updatedTodo as Todo;
+    return updatedTodo;
   } catch (error: any) {
-    handleDatabaseError(error) as unknown;
+    return handleDatabaseError(error);
   }
 };
 
 const deleteTodoDb = async (id: Todo['id']) => {
   try {
-    const todo = await TodoModel.findOneAndDelete({ id }).select('-_id');
+    const todo = await TodoModel.findOneAndDelete<Todo>({ id }).select('-_id');
     if (!todo) {
-      console.info('deleteTodoDb: Todo not found');
+      handleNotFound({ id, method: 'deleteTodoDb' });
     }
-    return todo as Todo;
+    return todo;
   } catch (error: any) {
-    handleDatabaseError(error) as unknown;
+    return handleDatabaseError(error);
   }
 };
 
 const getTodoByIdDB = async (id: any) => {
   try {
-    const todo = await TodoModel.findById(id).select('-_id');
+    const todo = await TodoModel.findById<Todo>(id).select('-_id');
     if (!todo) {
-      console.info('Todo not found');
+      handleNotFound({ id, method: 'getTodoByIdDB' });
     }
     return todo;
   } catch (error: any) {
-    handleDatabaseError(error);
+    return handleDatabaseError(error);
   }
 };
 
-export { createTodoDb, deleteTodoDb, getAllTodosDb, getTodoByIdDB,updateTodoDb };
+export { createTodoDb, deleteTodoDb, getAllTodosDb, getTodoByIdDB, updateTodoDb };

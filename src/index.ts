@@ -30,6 +30,7 @@ const typeDefs = gql(
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  includeStacktraceInErrorResponses: process.env.NODE_ENV === 'production' ? false : true,
 });
 
 await server.start();
@@ -37,8 +38,8 @@ await server.start();
 app.use('/graphql', cors(), express.json(), expressMiddleware(server));
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-  console.log(`graphql is running on http://localhost:${port}/graphql`);
+  console.log(`Server is running on ${process.env.NODE_ENV} mode http://localhost:${port}`);
+  console.log(`graphql is running on ${process.env.NODE_ENV} mode http://localhost:${port}/graphql`);
 });
 
 connectToMongoDB();

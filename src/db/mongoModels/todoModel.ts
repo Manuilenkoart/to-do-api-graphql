@@ -1,6 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const todoSchema = new mongoose.Schema(
+import { Todo } from '../../types.js';
+
+const todoSchema = new Schema<Todo>(
   {
     id: {
       type: String,
@@ -25,5 +27,6 @@ const todoSchema = new mongoose.Schema(
   },
 );
 
-const TodoModel = mongoose.model('Todo', todoSchema);
+const TodoModel = mongoose.model<Todo>('Todo', todoSchema);
+
 export default TodoModel;
