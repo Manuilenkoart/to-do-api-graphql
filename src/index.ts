@@ -10,7 +10,7 @@ import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 import { connectToMongoDB } from './db/index.js';
-import resolvers from './resolvers.js';
+import resolvers from './graphql/resolvers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,7 +19,7 @@ const port = process.env.SERVER_PORT;
 const app = express();
 
 const typeDefs = gql(
-  readFileSync(resolve(__dirname, '../src', 'schema.graphql'), {
+  readFileSync(resolve(__dirname, '../src/graphql', 'schema.graphql'), {
     encoding: 'utf-8',
   }),
 );

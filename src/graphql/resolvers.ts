@@ -1,8 +1,8 @@
 import { GraphQLError } from 'graphql';
 
-import { createTodoDb, deleteTodoDb, getAllTodosDb, updateTodoDb } from './db/index.js';
-import { MutationUpdateTodoArgs, Resolvers } from './generated/graphql.js';
-import { NewTodo, Todo } from './types.js';
+import { createTodoDb, deleteTodoDb, getAllTodosDb, updateTodoDb } from '../db/index.js';
+import { NewTodo, Todo } from '../types.js';
+import { MutationUpdateTodoArgs, Resolvers } from './types/graphql.js';
 
 const resolvers: Resolvers = {
   Query: {
