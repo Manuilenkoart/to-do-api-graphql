@@ -1,11 +1,11 @@
 type Query {
-  todos: [Todo]
+  todos: [Todo!]!
 }
 
 type Mutation {
-  createTodo(title: String!, text: String!): Todo
-  deleteTodo(id: ID!): Todo
-  updateTodo(id: ID!, title: String, text: String): Todo
+  createTodo(title: String!, text: String!): Todo!
+  deleteTodo(id: ID!): Todo!
+  updateTodo(id: ID!, title: String, text: String): Todo!
 }
 
 type Todo {

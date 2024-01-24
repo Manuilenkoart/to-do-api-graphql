@@ -9,11 +9,13 @@
     "npm": "^9.6.7"
   },
   "scripts": {
+    "predev": "npm run codegen",
     "dev": "NODE_ENV=dev npx nodemon",
     "start": "npm run build && NODE_ENV=production node public/index.js",
     "build": "rimraf ./public && npx tsc",
     "lint": "npx eslint ./src",
-    "format": "npx eslint ./src --fix"
+    "format": "npx eslint ./src --fix",
+    "codegen": "graphql-codegen"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +31,11 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/introspection": "4.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-mongodb": "3.0.0",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "@types/cors": "^2.8.17",
     "@types/node": "^20.10.5",
     "@typescript-eslint/eslint-plugin": "^6.16.0",

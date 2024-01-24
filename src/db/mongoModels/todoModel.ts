@@ -1,8 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
-import { Todo } from '../../types.js';
+interface TodoModelDocument extends Document {
+  id: string;
+  title: string;
+  text: string;
+}
 
-const todoSchema = new Schema<Todo>(
+const todoSchema = new Schema(
   {
     id: {
       type: String,
@@ -27,6 +31,6 @@ const todoSchema = new Schema<Todo>(
   },
 );
 
-const TodoModel = mongoose.model<Todo>('Todo', todoSchema);
+const TodoModel = mongoose.model<TodoModelDocument>('Todo', todoSchema);
 
 export default TodoModel;

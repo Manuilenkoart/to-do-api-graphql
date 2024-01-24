@@ -18,9 +18,6 @@ const __dirname = dirname(__filename);
 const port = process.env.SERVER_PORT;
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-
 const typeDefs = gql(
   readFileSync(resolve(__dirname, '../src', 'schema.graphql'), {
     encoding: 'utf-8',
@@ -30,16 +27,20 @@ const typeDefs = gql(
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  includeStacktraceInErrorResponses: process.env.NODE_ENV === 'production' ? false : true,
+  includeStacktraceInErrorResponses: process.env.NODE_ENV !== 'production',
 });
 
 await server.start();
 
 app.use('/graphql', cors(), express.json(), expressMiddleware(server));
 
+app.get('/health', (req, res) => {
+  res.status(200).send('Okay! 🚀');
+});
+
 app.listen(port, () => {
   console.log(`Server is running on ${process.env.NODE_ENV} mode http://localhost:${port}`);
-  console.log(`graphql is running on ${process.env.NODE_ENV} mode http://localhost:${port}/graphql`);
+  console.log(`Graphql is running on ${process.env.NODE_ENV} mode http://localhost:${port}/graphql`);
 });
 
 connectToMongoDB();
